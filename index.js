@@ -87,7 +87,7 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
 
-            if (channels[t].isOn){//&& !(user.mod || user.badges.broadcaster == 1)) {
+            if (channels[t].isOn && !(user.mod || user.badges.broadcaster == 1)) {
                 message = ' ' + message + ' '
         
                 let found = false;
@@ -116,7 +116,7 @@ client.on('chat', (channel, user, message, self) => {
         
                 if (found) {
                     client.action(channel.slice(1,channel.length), 'Move detected! Please no sharing moves!')
-                    //client.timeout("CryBabyCarly", user.username, 1, "Hint in chess.");
+                    client.timeout("CryBabyCarly", user.username, 1, "Hint in chess.");
                     hintsDestroyed++;
                 }
             }
