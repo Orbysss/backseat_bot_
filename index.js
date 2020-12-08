@@ -70,16 +70,16 @@ client.on('chat', (channel, user, message, self) => {
             console.log(user)
             if ((user.mod || user.badges.broadcaster == 1) && message == "!cp on" && !channels[t].isOn) {
                 channels[t].isOn = true;
-                client.action(channel.slice(1,channel.length), 'have been dispatched! No giving hints!')
+                client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
             }
 
             if ((user.mod || user.badges.broadcaster == 1) && message == "!cp off" && channels[t].isOn) {
                 channels[t].isOn = false;
-                client.action(channel.slice(1,channel.length), 'have been called off. You are free to give hints!')
+                client.action(channel.slice(1,channel.length), 'has been DEACTIVATED. You are free to give moves.')
             }
 
             if (message == "!cp stats") {
-                client.action(channel.slice(1,channel.length), 'have arrested ' + hintsDestroyed + " hints.")
+                client.action(channel.slice(1,channel.length), 'has destroyed ' + hintsDestroyed + " hints.")
             }
 
             if (message == "!cp uptime") {
