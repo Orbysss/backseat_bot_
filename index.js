@@ -79,12 +79,12 @@ client.on('chat', (channel, user, message, self) => {
 
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp on" && !channels[t].isOn) {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp on") {
                 channels[t].isOn = true;
                 client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
             }
 
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp off" && channels[t].isOn) {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp off") {
                 channels[t].isOn = false;
                 client.action(channel.slice(1,channel.length), 'has been DEACTIVATED. You are free to give moves.')
             }
@@ -105,16 +105,16 @@ client.on('chat', (channel, user, message, self) => {
                 for (let i = 0; i < spaces.length; i++) {
                     let str = " " + spaces[i] + " "
         
-                    if (message == str) {
+                    if (message.includes(str)) {
                         found = true;
                         i = spaces.length
                     }
         
                     if (!found) {
                         for (let j = 0; j < pieces.length; j++) {
-                            let pieceAndSpace = pieces[j] + spaces[i];
-                            let capturePieceAndSpace = pieces[j] + 'x' + spaces[i];
-                            if (message == pieceAndSpace || message == capturePieceAndSpace) {
+                            let pieceAndSpace = ' ' + pieces[j] + spaces[i] + ' ';
+                            let capturePieceAndSpace = ' ' + pieces[j] + 'x' + spaces[i] + ' ';
+                            if (message.includes(pieceAndSpace) || message.includes(capturePieceAndSpace)) {
                                 found = true;
                                 j = pieces.length;
                             }
@@ -125,14 +125,13 @@ client.on('chat', (channel, user, message, self) => {
                 if(!found) {
                     for (let i = 0; i < unique.length; i++) {
                         let str = " " + unique[i] + " "
-                        if (message == str) {
+                        if (message.includes(str)) {
                             found = true;
                             i = unique.length
                         }
                     }
                 }
 
-        
                 if (found) {
                     client.action(channel.slice(1,channel.length), 'has detected a move! Please no sharing moves at this time.')
                     client.timeout(channel.slice(1,channel.length), user.username, 1, "Hint in chess.");
