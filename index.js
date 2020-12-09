@@ -79,13 +79,12 @@ client.on('chat', (channel, user, message, self) => {
 
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
-            console.log(user)
-            if ((user.mod || user.badges.broadcaster == 1) && message == "!cp on" && !channels[t].isOn) {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp on" && !channels[t].isOn) {
                 channels[t].isOn = true;
                 client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
             }
 
-            if ((user.mod || user.badges.broadcaster == 1) && message == "!cp off" && channels[t].isOn) {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp off" && channels[t].isOn) {
                 channels[t].isOn = false;
                 client.action(channel.slice(1,channel.length), 'has been DEACTIVATED. You are free to give moves.')
             }
@@ -99,14 +98,14 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
 
-            if (channels[t].isOn && !(user.mod || user.badges.broadcaster == 1)) {
+            if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
                 message = ' ' + message + ' '
         
                 let found = false;
                 for (let i = 0; i < spaces.length; i++) {
                     let str = " " + spaces[i] + " "
         
-                    if (message.includes(str)) {
+                    if (message == str) {
                         found = true;
                         i = spaces.length
                     }
@@ -115,7 +114,7 @@ client.on('chat', (channel, user, message, self) => {
                         for (let j = 0; j < pieces.length; j++) {
                             let pieceAndSpace = pieces[j] + spaces[i];
                             let capturePieceAndSpace = pieces[j] + 'x' + spaces[i];
-                            if (message.includes(pieceAndSpace) || message.includes(capturePieceAndSpace)) {
+                            if (message == pieceAndSpace || message == capturePieceAndSpace) {
                                 found = true;
                                 j = pieces.length;
                             }
@@ -126,7 +125,7 @@ client.on('chat', (channel, user, message, self) => {
                 if(!found) {
                     for (let i = 0; i < unique.length; i++) {
                         let str = " " + unique[i] + " "
-                        if (message.includes(str)) {
+                        if (message == str) {
                             found = true;
                             i = unique.length
                         }
