@@ -1,5 +1,6 @@
 // Imports
 const tmi = require('tmi.js')
+const axios = require('axios')
 
 // Setting up Env Variable Usage
 require('dotenv').config()
@@ -79,6 +80,27 @@ client.on('chat', (channel, user, message, self) => {
 
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
+            let tokens = message.split(' ')
+            if (tokens[0] == "!cp" && tokens[1] == "rating" && tokens.length == 4) {
+                axios.get(`https://api.chess.com/pub/player/${tokens[3]}/stats`).then(res => {
+                    console.log(res.data)
+
+                    if (tokens[2] == "bullet" && res.data.chess_bullet) {
+                        let bulletRank = res.data.chess_bullet.last.rating
+                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + bulletRank + ' for Bullet Chess.')
+                    } else if (tokens[2] == "blitz" && res.data.chess_blitz) {
+                        let blitzRank = res.data.chess_blitz.last.rating
+                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + blitzRank + ' for Blitz Chess.')
+                    } else if (tokens[2] == "rapid" && res.data.chess_rapid) {
+                        let rapidRank = res.data.chess_rapid.last.rating
+                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + rapidRank + ' for Rapid Chess.')
+                    } else {
+                        client.action(channel.slice(1,channel.length), 'has found no rating.')
+                    }
+                })
+                //
+            }
+
             if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!cp on") {
                 channels[t].isOn = true;
                 client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
