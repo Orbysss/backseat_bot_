@@ -32,7 +32,7 @@ const endings = [
 
 // Pieces on a Chess Board
 const pieces = [
-    'k', 'q', 'b', 'n', 'r', ''
+    'k', 'q', 'b', 'n', 'r', '', 'ka', 'kb', 'na', 'nb', 'qx', 'ra', 'rb'
 ]
 
 // Unique moves
