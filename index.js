@@ -81,7 +81,7 @@ client.on('chat', (channel, user, message, self) => {
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
             let tokens = message.split(' ')
-            if (tokens[0] == "!chess" && tokens[1] == "rating" && tokens.length == 4) {
+            if (tokens[0] == "!c" && tokens[1] == "rating" && tokens.length == 4) {
                 axios.get(`https://api.chess.com/pub/player/${tokens[3]}/stats`).then(res => {
                     console.log(res.data)
 
@@ -101,21 +101,21 @@ client.on('chat', (channel, user, message, self) => {
                 //
             }
 
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!chess on") {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!c on") {
                 channels[t].isOn = true;
                 client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
             }
 
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!chess off") {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!c off") {
                 channels[t].isOn = false;
                 client.action(channel.slice(1,channel.length), 'has been DEACTIVATED. You are free to give moves.')
             }
 
-            if (message == "!chess stats") {
+            if (message == "!c stats") {
                 client.action(channel.slice(1,channel.length), 'has destroyed ' + hintsDestroyed + " hints.")
             }
 
-            if (message == "!chess uptime") {
+            if (message == "!c uptime") {
                 let endTime = new Date();
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
