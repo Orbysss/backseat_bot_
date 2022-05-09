@@ -9,7 +9,7 @@
   "author": "Brandon Pessman <pessman.brandon@gmail.com> (github.com/brandonpessman)",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "dotenv": "^8.2.0",
     "tmi.js": "^1.5.0"
   }
