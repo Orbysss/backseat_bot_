@@ -1,2 +1,1 @@
-# twitch-chesspolice
-A Twitch bot that simply removes chess moves from chat, automatically. 
+# twitch-backseat_bot_
