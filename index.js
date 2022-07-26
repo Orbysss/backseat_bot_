@@ -10,7 +10,7 @@ let hintsDestroyed = 0;
 let startTime = new Date();
 
 // Channels to add to
-let channelList = ['BeastJoe35', 'CuentadeGato', 'mattamorphosize', 'hannahsayce', 'CryBabyCarly', 'fleoren', 'velcrodot', 'lularobs', 'froyachess', 'thunderblunder501', 'sheemiee', 'sassywater', 'hannzza', 'laurentruongg']
+let channelList = ['thechessbae']
 
 // Spaces on a Chess Board
 const spaces = [
