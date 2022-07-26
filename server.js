@@ -81,41 +81,44 @@ client.on('chat', (channel, user, message, self) => {
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
             let tokens = message.split(' ')
-            if (tokens[0] == "!c" && tokens[1] == "rating" && tokens.length == 4) {
+            if (tokens[0] == "!bs" && tokens[1] == "rating" && tokens.length == 4) {
                 axios.get(`https://api.chess.com/pub/player/${tokens[3]}/stats`).then(res => {
                     console.log(res.data)
 
                     if (tokens[2] == "bullet" && res.data.chess_bullet) {
                         let bulletRank = res.data.chess_bullet.last.rating
-                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + bulletRank + ' for Bullet Chess.')
+                        let bulletPeak = res.data.chess_bullet.best.rating
+                        client.action(channel.slice(1,channel.length), '${tokens[3]} (Bullet) Current:' + bulletRank + ' | Best: ' + bulletPeak)
                     } else if (tokens[2] == "blitz" && res.data.chess_blitz) {
                         let blitzRank = res.data.chess_blitz.last.rating
-                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + blitzRank + ' for Blitz Chess.')
+                        let blitzPeak = res.data.chess_bullet.best.rating
+                        client.action(channel.slice(1,channel.length), '${tokens[3]} (Blitz) Current:' + blitzRank + ' | Best: ' + blitzPeak)
                     } else if (tokens[2] == "rapid" && res.data.chess_rapid) {
                         let rapidRank = res.data.chess_rapid.last.rating
-                        client.action(channel.slice(1,channel.length), 'has found a rating of ' + rapidRank + ' for Rapid Chess.')
+                        let rapidPeak = res.data.chess_bullet.best.rating
+                        client.action(channel.slice(1,channel.length), '${tokens[3]} (Bullet) Current:' + rapidRank + ' | Best: ' + rapidPeak)
                     } else {
-                        client.action(channel.slice(1,channel.length), 'has found no rating.')
+                        client.action(channel.slice(1,channel.length), 'Error.')
                     }
                 })
                 //
             }
 
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!c on") {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!bs 1") {
                 channels[t].isOn = true;
-                client.action(channel.slice(1,channel.length), 'has been ACTIVATED! No giving moves.')
+                client.action(channel.slice(1,channel.length), 'is ON duty! No sharing moves.')
             }
 
-            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!c off") {
+            if ((user.mod || user.username == channel.slice(1,channel.length)) && message == "!bs 0") {
                 channels[t].isOn = false;
-                client.action(channel.slice(1,channel.length), 'has been DEACTIVATED. You are free to give moves.')
+                client.action(channel.slice(1,channel.length), 'is OFF duty. Feel free to share moves.')
             }
 
-            if (message == "!c stats") {
-                client.action(channel.slice(1,channel.length), 'has destroyed ' + hintsDestroyed + " hints.")
+            if (message == "!bs stats") {
+                client.action(channel.slice(1,channel.length), 'has deleted ' + hintsDestroyed + " moves.")
             }
 
-            if (message == "!c uptime") {
+            if (message == "!bs uptime") {
                 let endTime = new Date();
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
@@ -156,7 +159,7 @@ client.on('chat', (channel, user, message, self) => {
 
                 if (found) {
                     client.action(channel.slice(1,channel.length), 'has detected a move! Please no sharing moves at this time.')
-                    client.timeout(channel.slice(1,channel.length), user.username, 1, "Hint in chess.");
+                    client.timeout(channel.slice(1,channel.length), user.username, 1, "Hint detected.");
                     hintsDestroyed++;
                 }
             }
