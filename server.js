@@ -63,7 +63,7 @@ const client = new tmi.client(options);
 client.connect();
 
 // Initializing Channel Data in memory
-let channels = ['thechessbae'];
+let channels = [];
 for (let i = 0; i < channelList.length; i++) {
     let data = {
         channel: channelList[i],
