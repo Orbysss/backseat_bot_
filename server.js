@@ -73,6 +73,20 @@ for (let i = 0; i < channelList.length; i++) {
     channels.push(data)
 }
 
+// Time command
+if (message.toLowerCase() === '!time') {
+
+    const minute = 1000 * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+    const year = day * 365;
+    
+    const d = new Date();
+    let years = Math.round(d.getTime() / year);
+    
+    client.say(channel, `The time is: ` +d  );
+    }
+
 // Action when a user chats from any of the channels
 client.on('chat', (channel, user, message, self) => {
     // Set message to all lowercase to make it easier to check
