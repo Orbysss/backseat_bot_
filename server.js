@@ -74,7 +74,7 @@ for (let i = 0; i < channelList.length; i++) {
 }
 
 // Time command
-if (message.toLowerCase() === '!time') {
+if (message.toLowerCase() == '!bs time') {
 
     const minute = 1000 * 60;
     const hour = minute * 60;
