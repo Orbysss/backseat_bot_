@@ -91,12 +91,12 @@ client.on('chat', (channel, user, message, self) => {
                         client.action(channel.slice(1,channel.length), tokens[2] + '(Bullet) Current:' + bulletRank + ' | Best: ' + bulletPeak)
                     } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
                         let blitzRank = res.data.chess_blitz.last.rating
-                        let blitzPeak = res.data.chess_bullet.best.rating
+                        let blitzPeak = res.data.chess_blitz.best.rating
                         client.action(channel.slice(1,channel.length), tokens[2] + '(Blitz) Current:' + blitzRank + ' | Best: ' + blitzPeak)
                     } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
                         let rapidRank = res.data.chess_rapid.last.rating
-                        let rapidPeak = res.data.chess_bullet.best.rating
-                        client.action(channel.slice(1,channel.length), tokens[2] + '(Bullet) Current:' + rapidRank + ' | Best: ' + rapidPeak)
+                        let rapidPeak = res.data.chess_rapid.best.rating
+                        client.action(channel.slice(1,channel.length), tokens[2] + '(Rapid) Current:' + rapidRank + ' | Best: ' + rapidPeak)
                     } else {
                         client.action(channel.slice(1,channel.length), 'Error.')
                     }
