@@ -124,7 +124,7 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
            
-            if (message == '!bs time') {
+            if (message == '!time') {
                   let myDate = new Date();
                   let pstDate = myDate.toLocaleString("en-US", {
                      timeZone: "America/Los_Angeles"
