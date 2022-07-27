@@ -124,13 +124,29 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
            
-                        // SO Command
+                // SO Command
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes ("!so")) {
                  const shout = message.slice(1).split('@');
                  const command = shout.shift().toLowerCase();
                  client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);    
             }
+                       
+                //Hateraid protection
+            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid")) { 
+                client.action(channel.slice(1,channel.length), '/followers 10');
+                client.action(channel.slice(1,channel.length), '/clear');
+                client.action(channel.slice(1,channel.length), 'Hate raid spotted. Chat is now in protected mode. ');
+            }
+
+            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid off")) {
+                client.action(channel.slice(1,channel.length), '/followersoff');
+                client.action(channel.slice(1,channel.length), 'Chat is back in normal mode. ');
+            }
             
+            
+            
+            
+                //IRL timecheck
             if (message == '!time') {
                   let myDate = new Date();
                   let pstDate = myDate.toLocaleString("en-US", {
@@ -139,6 +155,7 @@ client.on('chat', (channel, user, message, self) => {
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
+                //Celcius to fahrenheit conversion
             if (message.includes("!c")) {
 
                 const args = message.slice(0).split('!c');
@@ -148,8 +165,9 @@ client.on('chat', (channel, user, message, self) => {
                 let c = (b + 32) 
                 
                 client.action(channel.slice(1,channel.length), `The temperature in Fahrenheit is:` + ' ' + c);
-                };
+                }
             
+                //Fahrenheit to celcius conversion
             if (message.includes("!f")) {
                 
                 const args = message.slice(0).split('!f');
@@ -159,7 +177,7 @@ client.on('chat', (channel, user, message, self) => {
                 let c = (b * 0.5556) 
                 
                 client.action(channel.slice(1,channel.length), `The temperature in Celsius is:` + ' ' + c);
-                };
+                }
             
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
                 message = ' ' + message + ' '
