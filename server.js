@@ -126,13 +126,9 @@ client.on('chat', (channel, user, message, self) => {
            
             if (message == '!bs time') {
 
-                const minute = 1000 * 60;
-                const hour = minute * 60;
-
-                const d = new Date();
-                let years = Math.round(d.getTime() / year);
-
-                client.action(channel.slice(1,channel.length), `The time is: ` +d  );
+                 let date = new Date();
+                 let content = date.getHours() + ':' + date.getMinutes() + ';' + date.getSeconds();
+                 client.action(channel.slice(1,channel.length), `The time is: ` +content  );
                 }
             
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
