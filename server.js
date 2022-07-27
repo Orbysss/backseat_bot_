@@ -81,7 +81,7 @@ client.on('chat', (channel, user, message, self) => {
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
             let tokens = message.split(' ')
-            if (tokens[0] == "!bs" && tokens[1] == "rating" && tokens.length == 4) {
+            if (tokens[0] == "!bs" && tokens.length == 3) {
                 axios.get(`https://api.chess.com/pub/player/${tokens[3]}/stats`).then(res => {
                     console.log(res.data)
 
