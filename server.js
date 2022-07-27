@@ -140,7 +140,7 @@ client.on('chat', (channel, user, message, self) => {
                 let b = (a * 1.8); 
                 let c = (b + 32) 
                 
-                client.action(channel.slice(1,channel.length), `The temperature in Fahrenheit is:` + c);
+                client.action(channel.slice(1,channel.length), `The temperature in Fahrenheit is:` + ' ' + c);
                 };
             
             if (message.includes("!f")) {
@@ -151,7 +151,7 @@ client.on('chat', (channel, user, message, self) => {
                 let b = (a - 32); 
                 let c = (b * 0.5556) 
                 
-                client.action(channel.slice(1,channel.length), `The temperature in Celsius is:` + c);
+                client.action(channel.slice(1,channel.length), `The temperature in Celsius is:` + ' ' + c);
                 };
             
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
