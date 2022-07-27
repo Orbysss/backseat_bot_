@@ -124,6 +124,13 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
             }
            
+                        // SO Command
+            if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes ("!so")) {
+                 const shout = message.slice(1).split('@');
+                 const command = shout.shift().toLowerCase();
+                 client.action(channel.slice(1, channel.length), `Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')}`);    
+            }
+            
             if (message == '!time') {
                   let myDate = new Date();
                   let pstDate = myDate.toLocaleString("en-US", {
