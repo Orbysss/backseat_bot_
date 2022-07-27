@@ -76,6 +76,15 @@ for (let i = 0; i < channelList.length; i++) {
 
 // Action when a user chats from any of the channels
 client.on('chat', (channel, user, message, self) => {
+    
+               
+                // SO Command
+            if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes ("!so")) {
+                 const shout = message.slice(1).split('@');
+                 client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);    
+            }
+    
+    
     // Set message to all lowercase to make it easier to check
     message = message.toLowerCase()
 
@@ -122,12 +131,6 @@ client.on('chat', (channel, user, message, self) => {
             if (message == "!bs uptime") {
                 let endTime = new Date();
                 client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
-            }
-           
-                // SO Command
-            if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes ("!so")) {
-                 const shout = message.slice(1).split('@');
-                 client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${user.username} and give them a follow at twitch.tv/${user.username} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);    
             }
                        
                 //Hateraid protection
