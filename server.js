@@ -155,6 +155,19 @@ client.on('chat', (channel, user, message, self) => {
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
+                //Weather test
+            if (message == "!weather") {
+                axios.get(`https://api.scorpstuff.com/weather.php?units=imperial&city=california`).then(res => {
+                    client.action(channel.slice(1,channel.length), res.data)
+                })      
+            }
+
+            if (tokens[0] == "!weather" && tokens.length == 2) {
+                axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=${tokens[1]}').then(res => {
+                    client.action(channel.slice(1,channel.length), res.data)
+                })
+            }
+            
                 //Celcius to fahrenheit conversion
             if (message.includes("!c")) {
 
