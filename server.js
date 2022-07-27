@@ -125,11 +125,12 @@ client.on('chat', (channel, user, message, self) => {
             }
            
             if (message == '!bs time') {
-
-                 let date = new Date();
-                 let content = date.getHours() + ':' + date.getMinutes() + ';' + date.getSeconds();
-                 client.action(channel.slice(1,channel.length), `The time is: ` +content  );
-                }
+                  let myDate = new Date();
+                  let pstDate = myDate.toLocaleString("en-US", {
+                     timeZone: "America/Los_Angeles"
+                  })
+                  client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
+            }
             
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
                 message = ' ' + message + ' '
