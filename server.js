@@ -134,7 +134,7 @@ client.on('chat', (channel, user, message, self) => {
                 const d = new Date();
                 let years = Math.round(d.getTime() / year);
 
-                client.say(channel, `The time is: ` +d  );
+                client.action(channel.slice(1,channel.length), `The time is: ` +d  );
                 }
             
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
