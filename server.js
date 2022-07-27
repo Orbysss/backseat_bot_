@@ -163,7 +163,7 @@ client.on('chat', (channel, user, message, self) => {
             }
 
             if (tokens[0] == "!weather" && tokens.length == 2) {
-                axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=${tokens[1]}').then(res => {
+                axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=$(queryencode $(1:))').then(res => {
                     client.action(channel.slice(1,channel.length), res.data)
                 })
             }
