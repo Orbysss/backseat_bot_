@@ -128,7 +128,7 @@ client.on('chat', (channel, user, message, self) => {
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes ("!so")) {
                  const shout = message.slice(1).split('@');
                  const command = shout.shift().toLowerCase();
-                 client.action(channel.slice(1, channel.length), `Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')}`);    
+                 client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);    
             }
             
             if (message == '!time') {
