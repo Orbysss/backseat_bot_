@@ -132,6 +132,28 @@ client.on('chat', (channel, user, message, self) => {
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
+            if (message.includes("!c")) {
+
+                const args = message.slice(0).split('!c');
+                var a = args.join(" ");
+                
+                let b = (a * 1.8); 
+                let c = (b + 32) 
+                
+                client.action(channel.slice(1,channel.length), `The temperature in Fahrenheit is:` + c);
+                };
+            
+            if (message.includes("!f")) {
+                
+                const args = message.slice(0).split('!f');
+                var a = args.join(" ");
+                
+                let b = (a - 32); 
+                let c = (b * 0.5556) 
+                
+                client.action(channel.slice(1,channel.length), `The temperature in Celsius is:` + c);
+                };
+            
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1,channel.length))) {
                 message = ' ' + message + ' '
         
