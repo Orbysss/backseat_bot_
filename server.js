@@ -82,21 +82,21 @@ client.on('chat', (channel, user, message, self) => {
         if (channels[t].channel == channel) {
             let tokens = message.split(' ')
             if (tokens[0] == "!bs" && tokens.length == 3) {
-                axios.get(`https://api.chess.com/pub/player/${tokens[3]}/stats`).then(res => {
+                axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).then(res => {
                     console.log(res.data)
 
-                    if (tokens[2] == "bullet" && res.data.chess_bullet) {
+                    if (tokens[1] == "bullet" && res.data.chess_bullet) {
                         let bulletRank = res.data.chess_bullet.last.rating
                         let bulletPeak = res.data.chess_bullet.best.rating
-                        client.action(channel.slice(1,channel.length), '{tokens[3]} (Bullet) Current:' + bulletRank + ' | Best: ' + bulletPeak)
-                    } else if (tokens[2] == "blitz" && res.data.chess_blitz) {
+                        client.action(channel.slice(1,channel.length), '{tokens[2]} (Bullet) Current:' + bulletRank + ' | Best: ' + bulletPeak)
+                    } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
                         let blitzRank = res.data.chess_blitz.last.rating
                         let blitzPeak = res.data.chess_bullet.best.rating
-                        client.action(channel.slice(1,channel.length), '{tokens[3]} (Blitz) Current:' + blitzRank + ' | Best: ' + blitzPeak)
-                    } else if (tokens[2] == "rapid" && res.data.chess_rapid) {
+                        client.action(channel.slice(1,channel.length), '{tokens[2]} (Blitz) Current:' + blitzRank + ' | Best: ' + blitzPeak)
+                    } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
                         let rapidRank = res.data.chess_rapid.last.rating
                         let rapidPeak = res.data.chess_bullet.best.rating
-                        client.action(channel.slice(1,channel.length), '{tokens[3]} (Bullet) Current:' + rapidRank + ' | Best: ' + rapidPeak)
+                        client.action(channel.slice(1,channel.length), '{tokens[2]} (Bullet) Current:' + rapidRank + ' | Best: ' + rapidPeak)
                     } else {
                         client.action(channel.slice(1,channel.length), 'Error.')
                     }
