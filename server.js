@@ -8,6 +8,7 @@ require('dotenv').config()
 // Initializing Variables in Memory
 let hintsDestroyed = 0;
 let startTime = new Date();
+let lastGreetTime = 21600 * 1000;
 
 // Channels to add to
 let channelList = ['thechessbae']
@@ -85,6 +86,19 @@ client.on('chat', (channel, user, message, self) => {
                  shout.shift();
                  client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);    
             }
+    
+            if (user.username == "TheChessBae") {
+                 // Grab time
+        const timeNow = new Date().getTime()
+        // Check if at least 6 hours has elapsed since the last message
+        if (timeNow - lastGreetTime > 21600 * 1000) {
+            // Reset last message time
+            lastGreetTime = timeNow
+            // 6-hour cooldown !Shout-out
+            client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${user.username} and give them a follow at twitch.tv/${user.username} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
+            }
+        }
+      console.log(`${tags['display-name']}: ${message}`);
     
     
     // Set message to all lowercase to make it easier to check
@@ -246,4 +260,4 @@ client.on('chat', (channel, user, message, self) => {
             }
         }
     }
-})
+}));
