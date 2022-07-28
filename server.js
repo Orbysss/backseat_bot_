@@ -260,4 +260,4 @@ client.on(('chat', (channel, user, message, self) => {
             }
         }
     }
-}));
+}))
