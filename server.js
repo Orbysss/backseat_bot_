@@ -153,9 +153,16 @@ client.on('chat', (channel, user, message, self) => {
                 //IRL timecheck
             if (message == '!time') {
                   let myDate = new Date();
-                  let pstDate = myDate.toLocaleString("en-US", {
-                     timeZone: "America/Los_Angeles"
-                  })
+                  let pstDate = myDate.toLocaleString('en-US', {
+                    timeZone: "America/Los_Angeles",
+                    weekday: 'short', // long, short, narrow
+                    day: 'numeric', // numeric, 2-digit
+                    year: 'numeric', // numeric, 2-digit
+                    month: 'long', // numeric, 2-digit, long, short, narrow
+                    hour: 'numeric', // numeric, 2-digit
+                    minute: 'numeric', // numeric, 2-digit
+                    second: 'numeric', // numeric, 2-digit
+                    });
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
