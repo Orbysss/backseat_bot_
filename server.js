@@ -132,7 +132,10 @@ client.on('chat', (channel, user, message, self) => {
 
             if (message == "!bs awake") {
                 let endTime = new Date();
-                client.action(channel.slice(1,channel.length), 'has been up for ' + (((endTime.getTime() - startTime.getTime()) / 1000) / 60) + ' minutes.')
+                var runTime = (((endTime.getTime() - startTime.getTime()) / 1000) / 60)
+                var rounded = Math.round((runTime + Number.EPSILON) * 100) / 100;
+                console.log(rounded);
+                client.action(channel.slice(1,channel.length), 'has been up for ' + rounded + ' minutes.')
             }
                        
                 //Hateraid protection
