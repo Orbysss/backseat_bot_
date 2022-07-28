@@ -183,8 +183,8 @@ client.on('chat', (channel, user, message, self) => {
                 //Celcius to fahrenheit conversion
             if (message.includes("!c")) {
 
-                const args = message.slice(0).split('!c');
-                var a = args.join(" ");
+                const temp = message.slice(0).split('!c');
+                var a = temp.join(" ");
                 
                 let b = (a * 1.8); 
                 let c = (b + 32) 
@@ -195,8 +195,8 @@ client.on('chat', (channel, user, message, self) => {
                 //Fahrenheit to celcius conversion
             if (message.includes("!f")) {
                 
-                const args = message.slice(0).split('!f');
-                var a = args.join(" ");
+                const temp = message.slice(0).split('!f');
+                var a = temp.join(" ");
                 
                 let b = (a - 32); 
                 let c = (b * 0.5556) 
