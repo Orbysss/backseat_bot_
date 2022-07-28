@@ -80,6 +80,10 @@ client.on('chat', (channel, user, message, self) => {
 
     // SO Command
     if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes("!so")) {
+        for (let t = 0; t < channels.length; t++) {
+            if (channels[t].channel == channel) {
+                let tokens = message.split(' ')
+                if (tokens[0] == "!so" && tokens.length == 2) {
         const shout = message.slice(1).split('@');
         console.log(shout);
         shout.shift();
@@ -246,4 +250,9 @@ client.on('chat', (channel, user, message, self) => {
             }
         }
     }
+}
+        }
+
+    }
+
 })
