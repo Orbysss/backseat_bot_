@@ -12,6 +12,8 @@ let startTime = new Date();
 // Channels to add to
 let channelList = ['thechessbae']
 
+var prefix = "!"
+
 // Spaces on a Chess Board
 const spaces = [
     'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8',
@@ -90,6 +92,15 @@ client.on('chat', (channel, user, message, self) => {
     // Set message to all lowercase to make it easier to check
     message = message.toLowerCase()
 
+    const args = message.slice(prefix.length).trim().split(/ +/g);
+    try {
+        let commandFile = require(`./commands/${cmd}.js`)
+        commandFile.run(client, message, args, user, channel, self) 
+    } catch (err) {
+         client.action(channel.slice(1,channel.length), 'Command error.')
+        return;
+    }
+    
     for (let t = 0; t < channels.length; t++) {
         if (channels[t].channel == channel) {
             let tokens = message.split(' ')
@@ -110,7 +121,7 @@ client.on('chat', (channel, user, message, self) => {
                         let rapidPeak = res.data.chess_rapid.best.rating
                         client.action(channel.slice(1,channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
                     } else {
-                        client.action(channel.slice(1,channel.length), 'Error.')
+                        client.action(channel.slice(1,channel.length), 'Error retrieving rating for ' + tokens[2])
                     }
                 })
                 //
