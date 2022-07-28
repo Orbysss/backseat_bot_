@@ -76,7 +76,7 @@ for (let i = 0; i < channelList.length; i++) {
 
 
 // Action when a user chats from any of the channels
-client.on('chat', (channel, user, message, self) => {
+client.on(('chat', (channel, user, message, self) => {
     
                
                 // SO Command
