@@ -163,6 +163,7 @@ client.on('chat', (channel, user, message, self) => {
                     minute: 'numeric', // numeric, 2-digit
                     second: 'numeric', // numeric, 2-digit
                     });
+                  console.log(pstDate);
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
