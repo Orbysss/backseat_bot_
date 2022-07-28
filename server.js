@@ -126,13 +126,13 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1,channel.length), 'is OFF duty. Feel free to share moves.')
             }
 
-            if (message == "!bs stats") {
+            if (message == "!bs count") {
                 client.action(channel.slice(1,channel.length), 'has deleted ' + hintsDestroyed + " moves.")
             }
 
-            if (message == "!bs uptime") {
+            if (message == "!bs awake") {
                 let endTime = new Date();
-                client.action(channel.slice(1,channel.length), 'has been up for ' + ((endTime.getTime() - startTime.getTime()) / 1000) + ' seconds.')
+                client.action(channel.slice(1,channel.length), 'has been up for ' + (((endTime.getTime() - startTime.getTime()) / 1000) / 60) + ' minutes.')
             }
                        
                 //Hateraid protection
