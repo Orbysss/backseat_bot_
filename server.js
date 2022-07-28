@@ -165,7 +165,7 @@ client.on('chat', (channel, user, message, self) => {
                     });
                   console.log(pstDate);
                   Array.from(pstDate);
-                  clock.shift(3);
+                  pstDate.shift(3);
                   console.log();
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
