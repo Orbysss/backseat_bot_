@@ -155,18 +155,11 @@ client.on('chat', (channel, user, message, self) => {
                   let myDate = new Date();
                   let pstDate = myDate.toLocaleString('en-US', {
                     timeZone: "America/Los_Angeles",
-                    weekday: 'short', // long, short, narrow
-                    day: 'numeric', // numeric, 2-digit
-                    year: 'numeric', // numeric, 2-digit
-                    month: 'long', // numeric, 2-digit, long, short, narrow
-                    hour: 'numeric', // numeric, 2-digit
-                    minute: 'numeric', // numeric, 2-digit
-                    second: 'numeric', // numeric, 2-digit
+                    hour: '2-digit', // numeric, 2-digit
+                    minute: '2-digit', // numeric, 2-digit
+                    second: '2-digit', // numeric, 2-digit
                     });
                   console.log(pstDate);
-                  Array.from(pstDate);
-                  pstDate.shift(3);
-                  console.log();
                   client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
             }
             
