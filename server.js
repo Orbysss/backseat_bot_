@@ -160,7 +160,8 @@ client.on('chat', (channel, user, message, self) => {
                     second: '2-digit', // numeric, 2-digit
                     });
                   console.log(pstDate);
-                  client.action(channel.slice(1,channel.length), `The time is: ` + pstDate );
+                  var clock = pstDate.replace(/^0(?:0:0?)?/, '');
+                  client.action(channel.slice(1,channel.length), 'The time is ' + clock + ' in California');
             }
             
                 //Weather test
