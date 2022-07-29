@@ -75,11 +75,10 @@ for (let i = 0; i < channelList.length; i++) {
 
 
 // Action when a user chats from any of the channels
-client.on(('chat', (channel, user, message, self) => {
+client.on('chat', (channel, user, message, self) => {
 
 
     // SO Command
-    if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes("!so")) {
         for (let t = 0; t < channels.length; t++) {
             if (channels[t].channel == channel) {
                 let tokens = message.split(' ')
@@ -88,7 +87,7 @@ client.on(('chat', (channel, user, message, self) => {
         console.log(shout);
         shout.shift();
         client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
-    });
+                }
 
 
     // Set message to all lowercase to make it easier to check
@@ -252,7 +251,4 @@ client.on(('chat', (channel, user, message, self) => {
     }
 }
         }
-
-    }
-
-})
+    });
