@@ -93,30 +93,36 @@ client.on('chat', (channel, user, message, self) => {
     // Set message to all lowercase to make it easier to check
     message = message.toLowerCase()
 
-    for (let t = 0; t < channels.length; t++) {
-        if (channels[t].channel == channel) {
-            let tokens = message.split(' ')
-            if (tokens[0] == "!bs" && tokens.length == 3) {
-                axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).then(res => {
-                    console.log(res.data)
+for (let t = 0; t < channels.length; t++) {
+    if (channels[t].channel == channel) {
+        let tokens = message.split(' ')
+        if (tokens[0] == "!bs" && tokens.length == 3) {
+            axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).try(res => {
+                console.log(res.data)
 
-                    if (tokens[1] == "bullet" && res.data.chess_bullet) {
-                        let bulletRank = res.data.chess_bullet.last.rating
-                        let bulletPeak = res.data.chess_bullet.best.rating
-                        client.action(channel.slice(1, channel.length), tokens[2] + ' (Bullet) Current: ' + bulletRank + ' | Best: ' + bulletPeak)
-                    } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
-                        let blitzRank = res.data.chess_blitz.last.rating
-                        let blitzPeak = res.data.chess_blitz.best.rating
-                        client.action(channel.slice(1, channel.length), tokens[2] + ' (Blitz) Current: ' + blitzRank + ' | Best: ' + blitzPeak)
-                    } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
-                        let rapidRank = res.data.chess_rapid.last.rating
-                        let rapidPeak = res.data.chess_rapid.best.rating
-                        client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
-                    } else {
-                        client.action(channel.slice(1, channel.length), 'Error.')
-                    }
+                if (tokens[1] == "bullet" && res.data.chess_bullet) {
+                    let bulletRank = res.data.chess_bullet.last.rating
+                    let bulletPeak = res.data.chess_bullet.best.rating
+                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Bullet) Current: ' + bulletRank + ' | Best: ' + bulletPeak)
+                } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
+                    let blitzRank = res.data.chess_blitz.last.rating
+                    let blitzPeak = res.data.chess_blitz.best.rating
+                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Blitz) Current: ' + blitzRank + ' | Best: ' + blitzPeak)
+                } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
+                    let rapidRank = res.data.chess_rapid.last.rating
+                    let rapidPeak = res.data.chess_rapid.best.rating
+                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
+                }
+
                 })
-                //
+
+            .catch(error);{
+                client.action(channel.slice(1, channel.length), 'No user data found');
+            };          
+        }
+    }
+}
+                // OTHER
             }
 
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
