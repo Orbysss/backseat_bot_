@@ -182,10 +182,11 @@ for (let t = 0; t < channels.length; t++) {
                     client.action(channel.slice(1, channel.length), res.data)
                 })
             }
-
-            if (tokens[0] == "!weather" && tokens.length == 2) {
-                axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
-                    client.action(channel.slice(1, channel.length), res.data)
+            for (let t = 0; t < channels.length; t++) {
+                 if (channels[t].channel == channel) {
+                    if (tokens[0] == "!weather" && tokens.length == 2) {
+                      axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
+                         client.action(channel.slice(1, channel.length), res.data)
                 })
             }
 
@@ -254,5 +255,6 @@ for (let t = 0; t < channels.length; t++) {
                 }
             }
         }
-    });
-
+            }
+        }
+});
