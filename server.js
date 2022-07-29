@@ -88,7 +88,7 @@ client.on(('chat', (channel, user, message, self) => {
         console.log(shout);
         shout.shift();
         client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
-    }
+    })
 
 
     // Set message to all lowercase to make it easier to check
@@ -255,4 +255,4 @@ client.on(('chat', (channel, user, message, self) => {
 
     }
 
-}))
+})
