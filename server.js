@@ -113,9 +113,11 @@ for (let t = 0; t < channels.length; t++) {
                     let rapidPeak = res.data.chess_rapid.best.rating
                     client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
                 }
+
             }
-                                                                                 }                                                                    
-                })
+         )
+
+                
 
             .catch(error);{
                 client.action(channel.slice(1, channel.length), 'No user data found');
@@ -123,8 +125,10 @@ for (let t = 0; t < channels.length; t++) {
         }
     }
 }
+        }
+    }});
+
                 // OTHER
-            }
 
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
                 channels[t].isOn = true;
@@ -183,11 +187,13 @@ for (let t = 0; t < channels.length; t++) {
                     client.action(channel.slice(1, channel.length), res.data)
                 })
             }
+
+
             for (let t = 0; t < channels.length; t++) {
-                 if (channels[t].channel == channel) {
-                    if (tokens[0] == "!weather" && tokens.length == 2) {
-                      axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
-                         client.action(channel.slice(1, channel.length), res.data)
+                if (channels[t].channel == channel) {
+                 if (tokens[0] == "!weather" && tokens.length == 2) {
+                        axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
+                          client.action(channel.slice(1, channel.length), res.data)
                 })
             }
 
@@ -256,6 +262,5 @@ for (let t = 0; t < channels.length; t++) {
                 }
             }
         }
-            
-        
-});
+    };
+
