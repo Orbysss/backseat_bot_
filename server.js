@@ -98,7 +98,7 @@ client.on('chat', (channel, user, message, self) => {
                     if (channels[t].channel == channel) {
                         let tokens = message.split(' ')
                         if (tokens[0] == "!bs" && tokens.length == 3) {
-                            axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).try(res => {
+                            axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).then(res => {
                                 console.log(res.data)
 
                                 if (tokens[1] == "bullet" && res.data.chess_bullet) {
@@ -113,14 +113,11 @@ client.on('chat', (channel, user, message, self) => {
                                     let rapidRank = res.data.chess_rapid.last.rating
                                     let rapidPeak = res.data.chess_rapid.best.rating
                                     client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
+                                } else {
+                                    client.action(channel.slice(1, channel.length), 'Error.')
                                 }
                             })
-                                .catch(error); {
-                                    client.action(channel.slice(1, channel.length), 'No user found.')
-                            }
-                                }
-                                    
-                            }
+                            //
                         }
 
                         if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
@@ -253,6 +250,9 @@ client.on('chat', (channel, user, message, self) => {
                         }
                     }
                 }
+            }
         }
 
-    })
+    }
+
+})
