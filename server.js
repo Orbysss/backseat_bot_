@@ -79,189 +79,180 @@ client.on('chat', (channel, user, message, self) => {
 
 
     // SO Command
+    if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes("!so")) {
         for (let t = 0; t < channels.length; t++) {
             if (channels[t].channel == channel) {
                 let tokens = message.split(' ')
                 if (tokens[0] == "!so" && tokens.length == 2) {
-        const shout = message.slice(1).split('@');
-        console.log(shout);
-        shout.shift();
-        client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
+                    const shout = message.slice(1).split('@');
+                    console.log(shout);
+                    shout.shift();
+                    client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
                 }
 
 
-    // Set message to all lowercase to make it easier to check
-    message = message.toLowerCase()
+                // Set message to all lowercase to make it easier to check
+                message = message.toLowerCase()
 
-for (let t = 0; t < channels.length; t++) {
-    if (channels[t].channel == channel) {
-        let tokens = message.split(' ')
-        if (tokens[0] == "!bs" && tokens.length == 3) {
-            axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).try(res => {
-                console.log(res.data)
+                for (let t = 0; t < channels.length; t++) {
+                    if (channels[t].channel == channel) {
+                        let tokens = message.split(' ')
+                        if (tokens[0] == "!bs" && tokens.length == 3) {
+                            axios.get(`https://api.chess.com/pub/player/${tokens[2]}/stats`).try(res => {
+                                console.log(res.data)
 
-                if (tokens[1] == "bullet" && res.data.chess_bullet) {
-                    let bulletRank = res.data.chess_bullet.last.rating
-                    let bulletPeak = res.data.chess_bullet.best.rating
-                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Bullet) Current: ' + bulletRank + ' | Best: ' + bulletPeak)
-                } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
-                    let blitzRank = res.data.chess_blitz.last.rating
-                    let blitzPeak = res.data.chess_blitz.best.rating
-                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Blitz) Current: ' + blitzRank + ' | Best: ' + blitzPeak)
-                } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
-                    let rapidRank = res.data.chess_rapid.last.rating
-                    let rapidPeak = res.data.chess_rapid.best.rating
-                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
-                }
+                                if (tokens[1] == "bullet" && res.data.chess_bullet) {
+                                    let bulletRank = res.data.chess_bullet.last.rating
+                                    let bulletPeak = res.data.chess_bullet.best.rating
+                                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Bullet) Current: ' + bulletRank + ' | Best: ' + bulletPeak)
+                                } else if (tokens[1] == "blitz" && res.data.chess_blitz) {
+                                    let blitzRank = res.data.chess_blitz.last.rating
+                                    let blitzPeak = res.data.chess_blitz.best.rating
+                                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Blitz) Current: ' + blitzRank + ' | Best: ' + blitzPeak)
+                                } else if (tokens[1] == "rapid" && res.data.chess_rapid) {
+                                    let rapidRank = res.data.chess_rapid.last.rating
+                                    let rapidPeak = res.data.chess_rapid.best.rating
+                                    client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
+                                }
+                            })
+                                .catch(error); {
+                                    client.action(channel.slice(1, channel.length), 'No user found.')
+                            }
+                                }
+                                    
+                            }
+                        }
 
-            }
-         )
+                        if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
+                            channels[t].isOn = true;
+                            client.action(channel.slice(1, channel.length), 'is ON duty! No sharing moves.')
+                        }
 
-                
+                        if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 0") {
+                            channels[t].isOn = false;
+                            client.action(channel.slice(1, channel.length), 'is OFF duty. Feel free to share moves.')
+                        }
 
-            .catch(error);{
-                client.action(channel.slice(1, channel.length), 'No user data found');
-            };          
-        }
-    }
-}
-        }
-    }})
+                        if (message == "!bs count") {
+                            client.action(channel.slice(1, channel.length), 'has deleted ' + hintsDestroyed + " moves.")
+                        }
 
-                // OTHER
+                        if (message == "!bs awake") {
+                            let endTime = new Date();
+                            var runTime = (((endTime.getTime() - startTime.getTime()) / 1000) / 60)
+                            var rounded = Math.round((runTime + Number.EPSILON) * 100) / 100;
+                            console.log(rounded);
+                            client.action(channel.slice(1, channel.length), 'has been up for ' + rounded + ' minutes.')
+                        }
 
-            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
-                channels[t].isOn = true;
-                client.action(channel.slice(1, channel.length), 'is ON duty! No sharing moves.')
-            }
+                        //Hateraid protection
+                        if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid")) {
+                            client.action(channel.slice(1, channel.length), '/followers 10');
+                            client.action(channel.slice(1, channel.length), '/clear');
+                            client.action(channel.slice(1, channel.length), 'Hate raid spotted. Chat is now in protected mode. ');
+                        }
 
-            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 0") {
-                channels[t].isOn = false;
-                client.action(channel.slice(1, channel.length), 'is OFF duty. Feel free to share moves.')
-            }
-
-            if (message == "!bs count") {
-                client.action(channel.slice(1, channel.length), 'has deleted ' + hintsDestroyed + " moves.")
-            }
-
-            if (message == "!bs awake") {
-                let endTime = new Date();
-                var runTime = (((endTime.getTime() - startTime.getTime()) / 1000) / 60)
-                var rounded = Math.round((runTime + Number.EPSILON) * 100) / 100;
-                console.log(rounded);
-                client.action(channel.slice(1, channel.length), 'has been up for ' + rounded + ' minutes.')
-            }
-
-            //Hateraid protection
-            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid")) {
-                client.action(channel.slice(1, channel.length), '/followers 10');
-                client.action(channel.slice(1, channel.length), '/clear');
-                client.action(channel.slice(1, channel.length), 'Hate raid spotted. Chat is now in protected mode. ');
-            }
-
-            if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid off")) {
-                client.action(channel.slice(1, channel.length), '/followersoff');
-                client.action(channel.slice(1, channel.length), 'Chat is back in normal mode. ');
-            }
+                        if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid off")) {
+                            client.action(channel.slice(1, channel.length), '/followersoff');
+                            client.action(channel.slice(1, channel.length), 'Chat is back in normal mode. ');
+                        }
 
 
-        
-
-            //IRL timecheck
-            if (message == '!time') {
-                let myDate = new Date();
-                let pstDate = myDate.toLocaleString('en-US', {
-                    timeZone: "America/Los_Angeles",
-                    hour: '2-digit', // numeric, 2-digit
-                    minute: '2-digit', // numeric, 2-digit
-                    second: '2-digit', // numeric, 2-digit
-                });
-                console.log(pstDate);
-                var clock = pstDate.replace(/^0(?:0:0?)?/, '');
-                client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
-            }
-
-            //Weather test
-            if (message == "!weather") {
-                axios.get(`https://api.scorpstuff.com/weather.php?units=imperial&city=california`).then(res => {
-                    client.action(channel.slice(1, channel.length), res.data)
-                })
-            }
 
 
-            for (let t = 0; t < channels.length; t++) {
-                if (channels[t].channel == channel) {
-                   if (tokens[0] == "!weather" && tokens.length == 2) {
-                        axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
-                          client.action(channel.slice(1, channel.length), res.data)
-                        });
-                   }
-                }
-            }
+                        //IRL timecheck
+                        if (message == '!time') {
+                            let myDate = new Date();
+                            let pstDate = myDate.toLocaleString('en-US', {
+                                timeZone: "America/Los_Angeles",
+                                hour: '2-digit', // numeric, 2-digit
+                                minute: '2-digit', // numeric, 2-digit
+                                second: '2-digit', // numeric, 2-digit
+                            });
+                            console.log(pstDate);
+                            var clock = pstDate.replace(/^0(?:0:0?)?/, '');
+                            client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
+                        }
 
-            //Celcius to fahrenheit conversion
-            if (message.includes("!c")) {
+                        //Weather test
+                        if (message == "!weather") {
+                            axios.get(`https://api.scorpstuff.com/weather.php?units=imperial&city=california`).then(res => {
+                                client.action(channel.slice(1, channel.length), res.data)
+                            })
+                        }
 
-                const temp = message.slice(0).split('!c');
-                var a = temp.join(" ");
+                        if (tokens[0] == "!weather" && tokens.length == 2) {
+                            axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
+                                client.action(channel.slice(1, channel.length), res.data)
+                            })
+                        }
 
-                let b = (a * 1.8);
-                let c = (b + 32)
+                        //Celcius to fahrenheit conversion
+                        if (message.includes("!c")) {
 
-                client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + c);
-            }
+                            const temp = message.slice(0).split('!c');
+                            var a = temp.join(" ");
 
-            //Fahrenheit to celcius conversion
-            if (message.includes("!f")) {
+                            let b = (a * 1.8);
+                            let c = (b + 32)
 
-                const temp = message.slice(0).split('!f');
-                var a = temp.join(" ");
+                            client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + c);
+                        }
 
-                let b = (a - 32);
-                let c = (b * 0.5556)
+                        //Fahrenheit to celcius conversion
+                        if (message.includes("!f")) {
 
-                client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + c);
-            }
+                            const temp = message.slice(0).split('!f');
+                            var a = temp.join(" ");
 
-            if (channels[t].isOn && !(user.mod || user.username == channel.slice(1, channel.length))) {
-                message = ' ' + message + ' '
+                            let b = (a - 32);
+                            let c = (b * 0.5556)
 
-                let found = false;
-                for (let i = 0; i < spaces.length; i++) {
-                    let str = " " + spaces[i] + " "
+                            client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + c);
+                        }
 
-                    if (message.includes(str)) {
-                        found = true;
-                        i = spaces.length
-                    }
+                        if (channels[t].isOn && !(user.mod || user.username == channel.slice(1, channel.length))) {
+                            message = ' ' + message + ' '
 
-                    if (!found) {
-                        for (let j = 0; j < pieces.length; j++) {
-                            let pieceAndSpace = ' ' + pieces[j] + spaces[i] + ' ';
-                            let capturePieceAndSpace = ' ' + pieces[j] + 'x' + spaces[i] + ' ';
-                            if (message.includes(pieceAndSpace) || message.includes(capturePieceAndSpace)) {
-                                found = true;
-                                j = pieces.length;
+                            let found = false;
+                            for (let i = 0; i < spaces.length; i++) {
+                                let str = " " + spaces[i] + " "
+
+                                if (message.includes(str)) {
+                                    found = true;
+                                    i = spaces.length
+                                }
+
+                                if (!found) {
+                                    for (let j = 0; j < pieces.length; j++) {
+                                        let pieceAndSpace = ' ' + pieces[j] + spaces[i] + ' ';
+                                        let capturePieceAndSpace = ' ' + pieces[j] + 'x' + spaces[i] + ' ';
+                                        if (message.includes(pieceAndSpace) || message.includes(capturePieceAndSpace)) {
+                                            found = true;
+                                            j = pieces.length;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!found) {
+                                for (let i = 0; i < unique.length; i++) {
+                                    let str = " " + unique[i] + " "
+                                    if (message.includes(str)) {
+                                        found = true;
+                                        i = unique.length
+                                    }
+                                }
+                            }
+
+                            if (found) {
+                                client.action(channel.slice(1, channel.length), 'has detected a move! Please no sharing moves at this time.')
+                                client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
+                                hintsDestroyed++;
                             }
                         }
                     }
                 }
+        }
 
-                if (!found) {
-                    for (let i = 0; i < unique.length; i++) {
-                        let str = " " + unique[i] + " "
-                        if (message.includes(str)) {
-                            found = true;
-                            i = unique.length
-                        }
-                    }
-                }
-
-                if (found) {
-                    client.action(channel.slice(1, channel.length), 'has detected a move! Please no sharing moves at this time.')
-                    client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
-                    hintsDestroyed++;
-                }
-            
-        
-            };
+    })
