@@ -126,7 +126,7 @@ for (let t = 0; t < channels.length; t++) {
     }
 }
         }
-    }});
+    }})
 
                 // OTHER
 
@@ -165,7 +165,7 @@ for (let t = 0; t < channels.length; t++) {
             }
 
 
-
+        
 
             //IRL timecheck
             if (message == '!time') {
@@ -191,10 +191,12 @@ for (let t = 0; t < channels.length; t++) {
 
             for (let t = 0; t < channels.length; t++) {
                 if (channels[t].channel == channel) {
-                 if (tokens[0] == "!weather" && tokens.length == 2) {
+                   if (tokens[0] == "!weather" && tokens.length == 2) {
                         axios.get('https://api.scorpstuff.com/weather.php?units=imperial&city=' + tokens[1]).then(res => {
                           client.action(channel.slice(1, channel.length), res.data)
-                })
+                        });
+                   }
+                }
             }
 
             //Celcius to fahrenheit conversion
@@ -260,7 +262,6 @@ for (let t = 0; t < channels.length; t++) {
                     client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
                     hintsDestroyed++;
                 }
-            }
-        }
-    };
-
+            
+        
+            };
