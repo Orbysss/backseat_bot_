@@ -89,7 +89,9 @@ client.on('chat', (channel, user, message, self) => {
                     shout.shift();
                     client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
                 }
-
+            }
+        }
+    }
 
                 // Set message to all lowercase to make it easier to check
                 message = message.toLowerCase()
@@ -119,6 +121,8 @@ client.on('chat', (channel, user, message, self) => {
                             })
                             //
                         }
+                    }
+                }
 
                         if ((user.mod || user.username == channel.slice(1, channel.length)) && message == "!bs 1") {
                             channels[t].isOn = true;
@@ -248,11 +252,4 @@ client.on('chat', (channel, user, message, self) => {
                                 hintsDestroyed++;
                             }
                         }
-                    }
-                }
-            }
-        }
-
-    }
-
-})
+                    })
