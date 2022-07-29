@@ -254,7 +254,5 @@ for (let t = 0; t < channels.length; t++) {
                 }
             }
         }
-    }
-}
-        }
     });
+
