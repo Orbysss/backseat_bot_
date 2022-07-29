@@ -113,7 +113,8 @@ for (let t = 0; t < channels.length; t++) {
                     let rapidPeak = res.data.chess_rapid.best.rating
                     client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
                 }
-
+            }
+                                                                                 }                                                                    
                 })
 
             .catch(error);{
@@ -255,6 +256,6 @@ for (let t = 0; t < channels.length; t++) {
                 }
             }
         }
-            }
-        }
+            
+        
 });
