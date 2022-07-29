@@ -166,12 +166,6 @@ client.on('chat', (channel, user, message, self) => {
                 var clock = pstDate.replace(/^0(?:0:0?)?/, '');
                 client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
             }
-            
-            if (message == "!christmas") {
-                axios.get('https://api.scorpstuff.com/daysuntil.php?mydate=2022-12-25').then(res => {
-                    client.action(channel.slice(1, channel.length), res.data + ' days until Christmas https://imgur.com/a/Exuew3C')
-                })
-            }
 
             //Weather test
             if (message == "!weather") {
@@ -186,8 +180,14 @@ client.on('chat', (channel, user, message, self) => {
                 })
             }
 
+            if (message == "!christmas") {
+                axios.get('https://api.scorpstuff.com/daysuntil.php?mydate=2022-12-25').then(res => {
+                    client.action(channel.slice(1, channel.length), res.data + ' days until Christmas https://imgur.com/a/Exuew3C')
+                })
+            }
+
             //Celcius to fahrenheit conversion
-            if (message.includes("!c")) {
+            if (tokens[0] == "!s" && tokens.length == 2) {
 
                 const temp = message.slice(0).split('!c');
                 var a = temp.join(" ");
@@ -199,7 +199,7 @@ client.on('chat', (channel, user, message, self) => {
             }
 
             //Fahrenheit to celcius conversion
-            if (message.includes("!f")) {
+            if (tokens[0] == "!f" && tokens.length == 2) {
 
                 const temp = message.slice(0).split('!f');
                 var a = temp.join(" ");
@@ -245,7 +245,7 @@ client.on('chat', (channel, user, message, self) => {
                 }
 
                 if (found) {
-                    client.action(channel.slice(1, channel.length), 'has detected a move! Please no sharing moves at this time.')
+                    client.action(channel.slice(1, channel.length), 'has detected a move! PleaseTE no sharing moves at this time.')
                     client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
                     hintsDestroyed++;
                 }
