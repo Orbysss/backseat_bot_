@@ -166,6 +166,12 @@ client.on('chat', (channel, user, message, self) => {
                 var clock = pstDate.replace(/^0(?:0:0?)?/, '');
                 client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
             }
+            
+            if (message == !christmas) {
+                axios.get('https://api.scorpstuff.com/daysuntil.php?mydate=2022-12-25').then(res => {
+                    client.action(channel.slice(1, channel.length), res.data, ' days until Christmas https://imgur.com/a/Exuew3C')
+                })
+            }
 
             //Weather test
             if (message == "!weather") {
