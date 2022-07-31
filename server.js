@@ -11,7 +11,7 @@ let startTime = new Date();
 
 //Shoutout cooldowns
 let christinaShoutout = new Date();
-christinaShoutout.setSeconds(christinaShoutout.getSeconds() + 21601);
+christinaShoutout.setSeconds(christinaShoutout.getSeconds() - 21601);
 // Channels to add to
 let channelList = ['thechessbae']
 
