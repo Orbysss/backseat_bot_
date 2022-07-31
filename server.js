@@ -9,6 +9,9 @@ require('dotenv').config()
 let hintsDestroyed = 0;
 let startTime = new Date();
 
+//Shoutout cooldowns
+let christinaShoutout = new Date();
+christinaShoutout.setSeconds(christinaShoutout.getSeconds() + 21600 );
 // Channels to add to
 let channelList = ['thechessbae']
 
@@ -167,6 +170,17 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
             }
 
+            if (context.username == "Orbyss_") {
+                var christinaCooldown = (((christinaShoutout.getTime() - startTime.getTime()) / 1000) / 60)
+                var christinaRounded = Math.round((christinaCooldown + Number.EPSILON) * 100) / 100;
+
+                if (christinaRounded > 21600 * 1000) {
+                    christinaShoutout = timeNow
+                    client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out TheChessBae and give them a follow at twitch.tv/thechessbae 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
+
+                }
+            }
+
             //Weather test
             if (message == "!weather") {
                 axios.get(`https://api.scorpstuff.com/weather.php?units=imperial&city=california`).then(res => {
@@ -187,15 +201,15 @@ client.on('chat', (channel, user, message, self) => {
             }
 
             //Celcius to fahrenheit conversion
-            if (tokens[0] == "!s" && tokens.length == 2) {
+            if (tokens[0] == "!c" && tokens.length == 2) {
 
                 const temp = message.slice(0).split('!c');
                 var a = temp.join(" ");
 
                 let b = (a * 1.8);
-                let c = (b + 32)
-
-                client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + c);
+                let c = (b + 32);
+                let d = Math.round(c + Number.EPSILON) * 100 / 100
+                client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + d);
             }
 
             //Fahrenheit to celcius conversion
@@ -205,9 +219,9 @@ client.on('chat', (channel, user, message, self) => {
                 var a = temp.join(" ");
 
                 let b = (a - 32);
-                let c = (b * 0.5556)
-
-                client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + c);
+                let c = (b * 0.5556);
+                let d = Math.round(c + Number.EPSILON) * 100 / 100
+                client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + d);
             }
 
             if (channels[t].isOn && !(user.mod || user.username == channel.slice(1, channel.length))) {
