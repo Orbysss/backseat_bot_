@@ -208,7 +208,7 @@ client.on('chat', (channel, user, message, self) => {
 
                 let b = (a * 1.8);
                 let c = (b + 32);
-                let d = Math.round(c + Number.EPSILON) * 100 / 100
+                let d = c.toFixed(2);
                 client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + d);
             }
 
@@ -220,7 +220,7 @@ client.on('chat', (channel, user, message, self) => {
 
                 let b = (a - 32);
                 let c = (b * 0.5556);
-                let d = Math.round(c + Number.EPSILON) * 100 / 100
+                let d = c.toFixed(2);
                 client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + d);
             }
 
