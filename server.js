@@ -170,7 +170,7 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
             }
 
-            if (user.username == "Orbyss_") {
+            if (contex.user == "Orbyss_") {
                 var christinaCooldown = (((christinaShoutout.getTime() - startTime.getTime()) / 1000) / 60)
                 var christinaRounded = Math.round((christinaCooldown + Number.EPSILON) * 100) / 100;
 
