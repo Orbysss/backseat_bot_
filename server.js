@@ -171,7 +171,7 @@ client.on('chat', (channel, user, message, self) => {
             }
 
             if (user.username == "orbyss_") {
-                var christinaCooldown = (((christinaShoutout.getTime() - startTime.getTime()) / 1000) / 60)
+                var christinaCooldown = (christinaShoutout.getTime() - startTime.getTime())
                 var christinaRounded = Math.round((christinaCooldown + Number.EPSILON) * 100) / 100;
 
                 if (christinaRounded > 21600) {
