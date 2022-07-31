@@ -11,7 +11,7 @@ let startTime = new Date();
 
 //Shoutout cooldowns
 let christinaShoutout = new Date();
-christinaShoutout.setSeconds(christinaShoutout.getSeconds() + 21600 );
+christinaShoutout.setSeconds(christinaShoutout.getSeconds() + 21601);
 // Channels to add to
 let channelList = ['thechessbae']
 
@@ -174,7 +174,7 @@ client.on('chat', (channel, user, message, self) => {
                 var christinaCooldown = (((christinaShoutout.getTime() - startTime.getTime()) / 1000) / 60)
                 var christinaRounded = Math.round((christinaCooldown + Number.EPSILON) * 100) / 100;
 
-                if (christinaRounded > 21600 * 1000) {
+                if (christinaRounded > 21600) {
                     christinaShoutout = timeNow
                     client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out TheChessBae and give them a follow at twitch.tv/thechessbae 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
 
