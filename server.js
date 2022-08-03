@@ -9,9 +9,6 @@ require('dotenv').config()
 let hintsDestroyed = 0;
 let startTime = new Date();
 
-//Shoutout cooldowns
-let christinaShoutout = new Date();
-christinaShoutout.setSeconds(christinaShoutout.getSeconds() - 21601);
 // Channels to add to
 let channelList = ['thechessbae']
 
@@ -83,10 +80,13 @@ client.on('chat', (channel, user, message, self) => {
 
     // SO Command
     if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes("!so")) {
-        const shout = message.slice(1).split('@');
+        if (tokens[0] == "!so" && tokens.length == 2) {
+            const shout = message.slice(1).split('@');
         console.log(shout);
         shout.shift();
         client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
+    }
+        
     }
 
 
@@ -112,7 +112,15 @@ client.on('chat', (channel, user, message, self) => {
                         let rapidRank = res.data.chess_rapid.last.rating
                         let rapidPeak = res.data.chess_rapid.best.rating
                         client.action(channel.slice(1, channel.length), tokens[2] + ' (Rapid) Current: ' + rapidRank + ' | Best: ' + rapidPeak)
-                    } else {
+                    } else if (tokens[1] == "rating" && res.data.chess_rapid && res.data.chess_blitz && res.data.chess_bullet) {
+                        let rapidRank = res.data.chess_rapid.last.rating
+                        let blitzRank = res.data.chess_blitz.last.rating
+                        let bulletRank = res.data.chess_bullet.last.rating
+
+                        client.action(channel.slice(1, channel.length), ' Current ratings for ' + tokens[2] + ': Rapid' + rapidRank + ' | Blitz: ' + blitzRank + ' | Bullet: ' + bulletRank)
+                    }
+
+                    else {
                         client.action(channel.slice(1, channel.length), 'Error.')
                     }
                 })
@@ -170,17 +178,6 @@ client.on('chat', (channel, user, message, self) => {
                 client.action(channel.slice(1, channel.length), 'The time is ' + clock + ' in California');
             }
 
-            if (user.username == "orbyss_") {
-                var christinaCooldown = (christinaShoutout.getTime() - startTime.getTime())
-                var christinaRounded = Math.round((christinaCooldown + Number.EPSILON) * 100) / 100;
-
-                if (christinaRounded > 21600) {
-                    christinaShoutout = timeNow
-                    client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out TheChessBae and give them a follow at twitch.tv/thechessbae 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
-
-                }
-            }
-
             //Weather test
             if (message == "!weather") {
                 axios.get(`https://api.scorpstuff.com/weather.php?units=imperial&city=california`).then(res => {
@@ -208,7 +205,7 @@ client.on('chat', (channel, user, message, self) => {
 
                 let b = (a * 1.8);
                 let c = (b + 32);
-                let d = c.toFixed(2);
+                let d = Math.round(c + Number.EPSILON) * 100 / 100
                 client.action(channel.slice(1, channel.length), `The temperature in Fahrenheit is:` + ' ' + d);
             }
 
@@ -220,7 +217,7 @@ client.on('chat', (channel, user, message, self) => {
 
                 let b = (a - 32);
                 let c = (b * 0.5556);
-                let d = c.toFixed(2);
+                let d = Math.round(c + Number.EPSILON) * 100 / 100
                 client.action(channel.slice(1, channel.length), `The temperature in Celsius is:` + ' ' + d);
             }
 
@@ -259,7 +256,7 @@ client.on('chat', (channel, user, message, self) => {
                 }
 
                 if (found) {
-                    client.action(channel.slice(1, channel.length), 'has detected a move! Please no sharing moves at this time.')
+                    client.action(channel.slice(1, channel.length), 'has detected a move! PleaseTE no sharing moves at this time.')
                     client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
                     hintsDestroyed++;
                 }
