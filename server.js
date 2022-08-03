@@ -79,12 +79,16 @@ client.on('chat', (channel, user, message, self) => {
 
 
     // SO Command
-     if ((user.mod || user.username == channel.slice(1, channel.length)) && (tokens[0] == "!so" && tokens.length == 2)) { 
-            const shout = message.slice(1).split('@');
-        console.log(shout);
-        shout.shift();
-        client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
-    }
+  if ((user.mod || user.username == channel.slice(1, channel.length)) && message.includes("!so")) {
+        for (let t = 0; t < channels.length; t++) {
+            if (channels[t].channel == channel) {
+                let tokens = message.split(' ')
+                if (tokens[0] == "!so" && tokens.length == 2) {
+                    const shout = message.slice(1).split('@');
+                    console.log(shout);
+                    shout.shift();
+                    client.action(channel.slice(1, channel.length), `	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ Check out ${shout.join(' ')} and give them a follow at twitch.tv/${shout.join(' ')} 	▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬ `);
+                }
 
 
     // Set message to all lowercase to make it easier to check
