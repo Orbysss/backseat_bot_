@@ -79,7 +79,7 @@ client.on('chat', (channel, user, message, self) => {
 
 
     // SO Command
-     if ((user.mod || user.username == channel.slice(1, channel.length)) && tokens[0] == "!so" && tokens.length == 2) { 
+     if ((user.mod || user.username == channel.slice(1, channel.length)) && (tokens[0] == "!so" && tokens.length == 2)) { 
             const shout = message.slice(1).split('@');
         console.log(shout);
         shout.shift();
