@@ -259,7 +259,7 @@ client.on('chat', (channel, user, message, self) => {
                 }
 
                 if (found) {
-                    client.action(channel.slice(1, channel.length), 'has detected a move! PleaseTE no sharing moves at this time.')
+                    client.action(channel.slice(1, channel.length), 'has detected a move! Please no sharing moves at this time.')
                     client.timeout(channel.slice(1, channel.length), user.username, 1, "Hint detected.");
                     hintsDestroyed++;
                 }
