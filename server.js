@@ -155,13 +155,13 @@ client.on('chat', (channel, user, message, self) => {
 
             //Hateraid protection
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid")) {
-                client.action(channel.slice(1, channel.length), '/followers 10');
-                client.action(channel.slice(1, channel.length), '/clear');
+                client.say(channel, '/followers 10');
+                client.say(channel, '/clear');
                 client.action(channel.slice(1, channel.length), 'Hate raid spotted. Chat is now in protected mode. ');
             }
 
             if ((user.mod || user.username == channel.slice(1, channel.length)) && message == ("!hateraid off")) {
-                client.action(channel.slice(1, channel.length), '/followersoff');
+                client.say(channel, '/followersoff');
                 client.action(channel.slice(1, channel.length), 'Chat is back in normal mode. ');
             }
 
